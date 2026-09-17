@@ -1,0 +1,14 @@
+services:
+  postgres-db:
+    image: postgres:16
+    container_name: pg-practica1
+    environment:
+      POSTGRES_PASSWORD: practicalpassword
+      POSTGRES_DB: practica1
+    ports:
+      - "5454:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
