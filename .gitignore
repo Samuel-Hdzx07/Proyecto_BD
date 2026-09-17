@@ -1,0 +1,19 @@
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Configuraciones de editores de código
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos temporales de Microsoft Office / Word
+~$*.docx
+~$*.doc
+*.tmp
+
+# Logs y volcados de bases de datos locales
+*.log
+*.sql.bak
