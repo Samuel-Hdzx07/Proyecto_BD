@@ -24,7 +24,7 @@ Sistema de visualización de datos sísmicos de México.
 - [Requisitos Ampliados](proyecto-propio/requisitos-ampliados.pdf)
 - [Modelo EER - Notación Peter Chen](proyecto-propio/eer-chen.png)
 - [Modelo EER - Notación Crow's Feet](proyecto-propio/eer-crows-feet.png)
-- **Herramienta:** <draw.io>, porque <Es bastante facil de usar ademas de que ofrece una interfaz muy bonita y sus resultados son excelentes hablando visualmente>.
+- **Herramienta:** <draw.io>,  porque es fácil de usar, ofrece todas las formas de la notación Chen y Crow's Feet, y sus resultados son claros visualmente.
 
 ### 2. Proyecto Asignado (Sismos)
 - [Levantamiento y Evidencias (Docker/SQL)](proyecto-asignado/levantamiento.md)
