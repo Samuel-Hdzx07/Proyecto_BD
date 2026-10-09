@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Impacto de Sismos en México</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--blue:#3f51b5;--blue-dark:#1a237e;--blue-light:#5c6bc0;--red:#ff0000;--red-dark:#b71c1c;--bg:#f0f2f5}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#333;font-family:Roboto,sans-serif}
+    button,select,input{font:inherit}.dashboard{display:flex;min-height:100vh}.sidebar{width:25%;min-width:250px;padding:24px;background:#1d4ed8;color:white}.sidebar h1{margin:0 0 28px;text-align:center;font:700 1.55rem Montserrat,sans-serif}.side-links{display:grid;gap:15px}.side-links button{padding:13px 15px;border:0;border-radius:6px;background:#2563eb;color:#fff;cursor:pointer;font-weight:500}.side-links button:hover{background:#3b82f6}.welcome{width:75%;display:flex;align-items:center;justify-content:center;padding:24px}.welcome-card{max-width:700px;padding:34px;background:#fff;border-radius:8px;text-align:center;box-shadow:0 12px 25px #0002}.welcome-card h2{margin:0;color:#6b7280;font-size:1.7rem}.welcome-card p{margin:18px 0 0;color:#9ca3af;line-height:1.6}
+    .view{display:none;min-height:100vh}.view-header{padding:30px;color:#fff;text-align:center;border-radius:0 0 15px 15px;background:linear-gradient(135deg,var(--red),var(--red-dark));box-shadow:0 4px 12px #00000026}.view-header.blue{background:linear-gradient(135deg,var(--blue-dark),#283593)}.view-header h1{margin:0;font:600 2.2rem Montserrat,sans-serif}.view-header p{margin:10px 0 0;opacity:.8}.container{max-width:1200px;margin:0 auto;padding:20px}.controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;padding:25px;margin-bottom:30px;background:#fff;border-radius:12px;box-shadow:0 4px 14px #00000014}.filter-group{display:flex;align-items:flex-end;flex-wrap:wrap;gap:15px}.filter-item{display:flex;flex-direction:column;gap:5px}.filter-item label,.controls>label{font-size:.9rem;font-weight:500;color:#555}.filter-item input,.filter-item select,.controls select{padding:10px 15px;border:1px solid #ddd;border-radius:8px;background:#f9f9f9}.btn,.map-toggle button{padding:12px 20px;border:0;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;cursor:pointer;font-weight:500}.btn:hover,.map-toggle button:hover{background:linear-gradient(135deg,#303f9f,var(--blue));transform:translateY(-1px)}.map-toggle{display:flex;gap:10px;flex-wrap:wrap}.map-toggle button.active{background:linear-gradient(135deg,#303f9f,var(--blue))}
+    .map{height:600px;width:100%;margin-bottom:30px;border:1px solid #e0e0e0;border-radius:12px;box-shadow:0 6px 18px #0000001a}.map-title{padding:10px 18px;border-radius:8px;background:#fff;box-shadow:0 0 15px #0000001a}.map-legend{padding:15px;line-height:24px;border-radius:8px;background:#fff;box-shadow:0 0 15px #0000001a;font-size:.9rem}.map-legend h4{margin:0 0 8px;color:#333}.map-legend i{display:inline-block;width:18px;height:18px;margin-right:8px;vertical-align:-4px;border-radius:50%}
+    .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;margin-top:30px}.metric-card{position:relative;overflow:hidden;padding:25px;background:#fff;border-radius:12px;text-align:center;box-shadow:0 4px 14px #00000014}.metric-card:before,.chart-card:before{content:"";position:absolute;top:0;left:0;width:100%;height:5px;background:linear-gradient(90deg,var(--blue),var(--blue-light))}.metric-card h3{margin:0 0 15px;font:600 1.2rem Montserrat,sans-serif}.metric-value{margin:10px 0;color:var(--blue);font:700 2.5rem Montserrat,sans-serif}.metric-card p{margin:0;color:#666;font-size:.9rem}
+    .statistics{padding:25px;margin:30px 0;background:#fff;border-radius:12px;box-shadow:0 4px 14px #00000014}.statistics h2{margin:0 0 20px;font:600 1.6rem Montserrat,sans-serif}.charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:25px}.chart-card{position:relative;min-height:430px;padding:20px;border:1px solid #eee;border-radius:8px;background:#fff;box-shadow:0 2px 8px #0000000d}.chart-card h3{margin:5px 0 15px;text-align:center;font:600 1.1rem Montserrat,sans-serif}.chart-card canvas{width:100%!important;height:350px!important}.footer{text-align:center;padding:20px;color:#777;font-size:.85rem}.back{position:fixed;right:24px;top:18px;z-index:1000}.population-map,.economic-map{height:600px}
+    @media(max-width:760px){.dashboard{display:block}.sidebar,.welcome{width:100%}.sidebar{min-height:auto}.welcome{min-height:55vh}.view-header h1{font-size:1.45rem}.container{padding:12px}.charts{grid-template-columns:1fr}.controls{align-items:stretch}.filter-group{width:100%}.map-toggle{width:100%}.map-toggle button{flex:1}.back{position:static;margin-top:15px}}
+  </style>
+</head>
+<body>
+  <section id="dashboard" class="dashboard">
+    <aside class="sidebar">
+      <h1>Impacto de Sismos en México</h1>
+      <div class="side-links">
+        <button data-open="earthquakes">Sismos en México</button>
+        <button data-open="population">Población de México</button>
+        <button data-open="economy">Economía de México</button>
+      </div>
+    </aside>
+    <main class="welcome">
+      <div class="welcome-card">
+        <h2>Selecciona un archivo del panel lateral para comenzar</h2>
+        <p>Explora los datos de impacto sísmico en diferentes años que permite analizar cómo los sismos afectan a diferentes lugares de México, considerando cuánta gente vive ahí y qué actividad económica tienen.</p>
+      </div>
+    </main>
+  </section>
+
+  <section id="earthquakes" class="view">
+    <header class="view-header"><h1>Sistema de Visualización de Datos Sísmicos, MUTVI 2025, UAM Azcapotzalco</h1><p>Análisis de la población potencialmente afectada por actividad sísmica</p></header>
+    <button class="btn back" data-back>← Volver al Dashboard</button>
+    <div class="container">
+      <div class="controls">
+        <div class="filter-group">
+          <div class="filter-item"><label for="eq-date">Fecha</label><input id="eq-date" type="date"></div>
+          <div class="filter-item"><label for="eq-year">Año</label><select id="eq-year"></select></div>
+          <div class="filter-item"><label for="eq-mag">Magnitud Mínima</label><input id="eq-mag" type="number" value="2" min="0" max="10" step=".1"></div>
+          <button class="btn" id="eq-filter">Filtrar</button>
+        </div>
+        <div class="map-toggle"><button class="active" data-open="earthquakes">Inicio</button><button data-focus="earthquake-map">Sismos</button><button data-focus="population-map-view">Población</button><button data-focus="economic-map-view">Economía</button><button data-focus="risk-view">Riesgo</button></div>
+      </div>
+      <div id="earthquake-map" class="map"></div>
+      <div class="metrics">
+        <article class="metric-card"><h3>Total de Sismos</h3><div class="metric-value" id="eq-total">0</div><p>Sismos registrados en el período seleccionado</p></article>
+        <article class="metric-card"><h3>Población Potencialmente Afectada</h3><div class="metric-value" id="eq-population">0</div><p>Personas en zonas cercanas a epicentros</p></article>
+        <article class="metric-card"><h3>Sismo con Mayor Impacto</h3><div class="metric-value" id="eq-largest">0</div><p id="eq-largest-location">Sin datos</p></article>
+      </div>
+      <div class="statistics"><h2>Estadísticas obtenidas</h2><div class="charts">
+        <article class="chart-card"><h3>Distribución de Magnitudes</h3><canvas id="magnitudeChart"></canvas></article>
+        <article class="chart-card"><h3>Correlación Magnitud vs Profundidad</h3><canvas id="depthChart"></canvas></article>
+        <article class="chart-card"><h3>Sismos por Mes</h3><canvas id="monthChart"></canvas></article>
+        <article class="chart-card"><h3>Población Afectada vs Magnitud</h3><canvas id="impactChart"></canvas></article>
+      </div></div>
+    </div>
+    <footer class="footer">Datos estáticos de demostración para GitHub Pages.</footer>
+  </section>
+
+  <section id="population" class="view">
+    <header class="view-header blue"><h1>Distribución de Población en México por Entidad Federativa</h1><p>Visualización de datos demográficos por estado</p></header>
+    <button class="btn back" data-back>← Volver al Dashboard</button>
+    <div class="container">
+      <div class="controls"><label for="population-type">Seleccionar tipo de población:</label><select id="population-type"><option value="total">Población Total</option><option value="female">Población Femenina</option><option value="male">Población Masculina</option></select></div>
+      <div id="population-map-view" class="map population-map"></div>
+      <div class="metrics"><article class="metric-card"><h3>Población Total Nacional</h3><div class="metric-value" id="pop-total"></div></article><article class="metric-card"><h3>Población Femenina</h3><div class="metric-value" id="pop-female"></div></article><article class="metric-card"><h3>Población Masculina</h3><div class="metric-value" id="pop-male"></div></article></div>
+      <div class="statistics"><h2>Estadísticas Nacionales</h2><div class="charts"><article class="chart-card"><h3>Distribución de Población por Estado</h3><canvas id="statePopulationChart"></canvas></article><article class="chart-card"><h3>Distribución por Género</h3><canvas id="genderChart"></canvas></article></div></div>
+    </div>
+  </section>
+
+  <section id="economy" class="view">
+    <header class="view-header blue"><h1>Análisis Económico por Entidad Federativa</h1><p>Visualización de indicadores económicos en México</p></header>
+    <button class="btn back" data-back>← Volver al Dashboard</button>
+    <div class="container">
+      <div class="controls"><div class="filter-group"><div class="filter-item"><label for="economy-type">Seleccionar indicador económico:</label><select id="economy-type"><option value="production">Producción Bruta Total</option><option value="consumption">Consumo Intermedio</option><option value="value">Valor Agregado Censal Bruto</option></select></div></div></div>
+      <div id="economic-map-view" class="map economic-map"></div>
+      <div class="metrics"><article class="metric-card"><h3>Producción Bruta Total Nacional</h3><div class="metric-value" id="economic-production"></div><p>Millones de pesos</p></article><article class="metric-card"><h3>Consumo Intermedio Total</h3><div class="metric-value" id="economic-consumption"></div><p>Millones de pesos</p></article><article class="metric-card"><h3>Valor Agregado Censal Bruto</h3><div class="metric-value" id="economic-value"></div><p>Millones de pesos</p></article></div>
+      <div class="charts"><article class="chart-card"><h3>Distribución de Producción Bruta Total por Entidad</h3><canvas id="productionChart"></canvas></article><article class="chart-card"><h3>Comparación de Indicadores Económicos</h3><canvas id="comparisonChart"></canvas></article><article class="chart-card" style="grid-column:span 2"><h3>Top 10 Entidades por Producción Bruta Total</h3><canvas id="topChart"></canvas></article></div>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script>
+    const earthquakesData=[
+      {date:"2017-09-19",time:"13:14:40",lat:18.329,lng:-98.671,magnitude:7.1,depth:51,location:"17 km al NOROESTE de CHIAUTLA DE TAPIA, PUE",population:3540685},
+      {date:"2017-09-09",time:"11:37:00",lat:16.73,lng:-95.2,magnitude:6.1,depth:10,location:"35 km al NORESTE de MATIAS ROMERO, OAX",population:700000},
+      {date:"2017-09-07",time:"23:49:18",lat:14.95,lng:-94.27,magnitude:8.2,depth:58,location:"133 km al SUROESTE de PIJIJIAPAN, CHIS",population:120000},
+      {date:"2020-06-23",time:"10:29:03",lat:16.22,lng:-95.93,magnitude:7.4,depth:22,location:"12 km al SURESTE de CRUCECITA, OAX",population:980000},
+      {date:"1985-09-19",time:"07:17:47",lat:18.14,lng:-102.71,magnitude:8.1,depth:15,location:"19 km al NOROESTE de LAZARO CARDENAS, MICH",population:3540685},
+      {date:"2025-03-12",time:"18:32:07",lat:19.41,lng:-99.12,magnitude:4.8,depth:12,location:"5 km al SUR de CDMX",population:2150000}
+    ];
+    const populationData=[
+      ["México",16992418,8659679,8332739],["Ciudad de México",9209944,4805017,4404927],["Jalisco",8348151,4249696,4098455],["Veracruz",8062579,4156000,3906579],["Puebla",6583278,3423000,3160278],["Guanajuato",6166934,3170000,2996934],["Nuevo León",5784442,2919000,2865442],["Chiapas",5543828,2810000,2733828],["Michoacán",4748846,2460000,2288846],["Oaxaca",4132148,2150000,1982148],["Baja California",3769020,1885000,1884020],["Guerrero",3657048,1880000,1777048],["Tamaulipas",3527735,1780000,1747735],["Coahuila",3146771,1580000,1566771],["Hidalgo",3082841,1570000,1512841],["Sinaloa",3026943,1510000,1516943],["Sonora",2944840,1460000,1484840],["San Luis Potosí",2822255,1430000,1392255],["Querétaro",2368467,1190000,1178467],["Yucatán",2320898,1180000,1140898],["Morelos",1971520,1000000,971520],["Quintana Roo",1857985,920000,937985],["Durango",1832650,920000,912650],["Zacatecas",1622138,820000,802138],["Aguascalientes",1425607,720000,705607],["Tlaxcala",1342977,680000,662977],["Nayarit",1235456,620000,615456],["Campeche",928363,465000,463363],["Baja California Sur",798447,398000,400447],["Colima",731391,367000,364391],["Tabasco",2402598,1210000,1192598],["Chihuahua",3741869,1880000,1861869]];
+    const economyData=populationData.map((d,i)=>({name:d[0],production:42000+(d[1]/1000)*8+(i%5)*3900,consumption:26000+(d[1]/1000)*5+(i%4)*2200,value:16000+(d[1]/1000)*3+(i%6)*1800}));
+    const colors={high:"#F44336",medium:"#FF9800",low:"#4CAF50"};
+    const fmt=n=>new Intl.NumberFormat("es-MX").format(Math.round(n));
+    let maps={},layers={},charts={};
+    function tileLayer(){return L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",{attribution:"Tiles &copy; Esri"});}
+    function initEarthquakes(){
+      if(maps.eq)return;
+      const map=maps.eq=L.map("earthquake-map").setView([23.6345,-102.5528],5);tileLayer().addTo(map);
+      const title=L.control({position:"topleft"});title.onAdd=()=>{const d=L.DomUtil.create("div","map-title");d.innerHTML="<b>Sismos y Población en México</b>";return d};title.addTo(map);
+      const legend=L.control({position:"bottomright"});legend.onAdd=()=>{const d=L.DomUtil.create("div","map-legend");d.innerHTML="<h4>Magnitud de Sismos</h4><i style='background:#F44336'></i> ≥ 6.0<br><i style='background:#FF9800'></i> 4.0 - 5.9<br><i style='background:#4CAF50'></i> 2.0 - 3.9<br><h4>Estados</h4><i style='background:blue'></i> Población &gt; 50,000";return d};legend.addTo(map);
+      layers.eq=L.layerGroup().addTo(map);layers.zones=L.layerGroup().addTo(map);layers.heat=L.layerGroup().addTo(map);L.control.layers({},{"Zonas de Actividad Sísmica":layers.heat,"Sismos (≥2.0)":layers.eq,"Estados Poblados":layers.zones}).addTo(map);updateEarthquakes();
+    }
+    function magnitudeColor(m){return m>=6?colors.high:m>=4?colors.medium:colors.low}
+    function updateEarthquakes(){
+      if(!maps.eq)return;Object.values(layers).forEach(l=>l.clearLayers());const year=document.getElementById("eq-year").value,min=Number(document.getElementById("eq-mag").value)||0,date=document.getElementById("eq-date").value;
+      const data=earthquakesData.filter(e=>e.date.startsWith(year)&&e.magnitude>=min&&(!date||e.date===date));const heat=[];
+      data.forEach(e=>{const c=magnitudeColor(e.magnitude);L.circleMarker([e.lat,e.lng],{radius:Math.max(e.magnitude*1.5,5),color:c,fillColor:c,fillOpacity:.6,weight:2}).bindPopup(`<b>Sismo de Magnitud ${e.magnitude.toFixed(1)}</b><br>Fecha: ${e.date.split("-").reverse().join("/")}<br>Hora: ${e.time}<br>Profundidad: ${e.depth} km<br>Ubicación: ${e.location}`).addTo(layers.eq);heat.push([e.lat,e.lng,Math.min(1,e.magnitude/8)]);});
+      populationData.forEach(d=>{const coords=stateCoords[d[0]];if(coords)L.circleMarker(coords,{radius:Math.log(d[1]/10000)*2,color:"blue",fillColor:"blue",fillOpacity:.5,weight:1}).bindPopup(`<b>${d[0]}</b><br>Población: ${fmt(d[1])}`).addTo(layers.zones)});if(window.L.heatLayer)L.heatLayer(heat,{radius:28,blur:18,maxZoom:8}).addTo(layers.heat);
+      document.getElementById("eq-total").textContent=fmt(data.length);document.getElementById("eq-population").textContent=fmt(data.reduce((s,e)=>s+e.population,0));const largest=data.reduce((a,b)=>!a||b.magnitude>a.magnitude?b:a,null);document.getElementById("eq-largest").textContent=largest?largest.magnitude.toFixed(1):"0";document.getElementById("eq-largest-location").textContent=largest?`${largest.date.split("-").reverse().join("/")} - ${largest.location}`:"Sin datos";renderEarthquakeCharts(data);
+    }
+    function chart(id,type,data,options={}){if(charts[id])charts[id].destroy();charts[id]=new Chart(document.getElementById(id),{type,data,options:{responsive:true,maintainAspectRatio:false,...options}})}
+    function renderEarthquakeCharts(data){const common={plugins:{legend:{display:true}},scales:{y:{beginAtZero:true}}};chart("magnitudeChart","bar",{labels:data.map(e=>e.magnitude.toFixed(1)),datasets:[{label:"Frecuencia",data:data.map(()=>1),backgroundColor:"rgba(63,81,181,.6)",borderColor:"#3f51b5"}]},common);chart("depthChart","scatter",{datasets:[{label:"Sismos",data:data.map(e=>({x:e.magnitude,y:e.depth})),backgroundColor:"rgba(233,30,99,.6)"}]},{scales:{x:{title:{display:true,text:"Magnitud"}},y:{title:{display:true,text:"Profundidad (km)"}}}});const months=Array(12).fill(0);data.forEach(e=>months[+e.date.slice(5,7)-1]++);chart("monthChart","bar",{labels:["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],datasets:[{label:"Número de Sismos",data:months,backgroundColor:"rgba(76,175,80,.6)",borderColor:"#4caf50"}]},common);chart("impactChart","scatter",{datasets:[{label:"Sismos",data:data.map(e=>({x:e.magnitude,y:e.population})),backgroundColor:"rgba(156,39,176,.6)"}]},{scales:{x:{title:{display:true,text:"Magnitud"}},y:{type:"logarithmic",title:{display:true,text:"Población Afectada"}}}})}
+    const stateCoords={"México":[19.36,-99.63],"Ciudad de México":[19.43,-99.13],"Jalisco":[20.67,-103.33],"Veracruz":[19.18,-96.14],"Puebla":[19.04,-98.2],"Guanajuato":[21.02,-101.26],"Nuevo León":[25.68,-100.32],"Chiapas":[16.76,-93.11],"Michoacán":[19.7,-101.19],"Oaxaca":[17.07,-96.73],"Baja California":[32.65,-115.47],"Guerrero":[17.55,-99.5],"Tamaulipas":[23.74,-99.14],"Coahuila":[25.43,-101],"Hidalgo":[20.09,-98.76],"Sinaloa":[24.8,-107.43],"Sonora":[29.09,-110.96],"San Luis Potosí":[22.15,-100.98],"Querétaro":[20.59,-100.39],"Yucatán":[20.98,-89.62],"Morelos":[18.92,-99.23],"Quintana Roo":[21.16,-86.85],"Durango":[24.02,-104.66],"Zacatecas":[22.77,-102.58],"Aguascalientes":[21.88,-102.28],"Tlaxcala":[19.32,-98.24],"Nayarit":[21.51,-104.9],"Campeche":[19.84,-90.53],"Baja California Sur":[24.14,-110.3],"Colima":[19.25,-103.72],"Tabasco":[17.99,-92.93],"Chihuahua":[28.64,-106.09]};
+    function loadMexicoStates(map,kind){fetch("https://raw.githubusercontent.com/angelnmara/geojson/master/mexicoHigh.json").then(r=>r.json()).then(geojson=>{const layer=L.geoJSON(geojson,{style:feature=>{const name=feature.properties.name||"";const row=populationData.find(d=>name.toLowerCase().includes(d[0].toLowerCase())||d[0].toLowerCase().includes(name.toLowerCase()));const econ=economyData.find(d=>name.toLowerCase().includes(d.name.toLowerCase())||d.name.toLowerCase().includes(name.toLowerCase()));const value=kind==="population"?(row?row[1]:0):(econ?econ.production:0);const max=kind==="population"?17000000:180000;const ratio=Math.min(1,value/max);return{fillColor:`hsl(${Math.round(350-ratio*350)},75%,${78-ratio*28}%)`,weight:1,color:"#777",fillOpacity:.72}},onEachFeature:(feature,layer)=>{const name=feature.properties.name||"Entidad";layer.bindPopup(`<b>${name}</b>`)}}).addTo(map);map.fitBounds(layer.getBounds(),{padding:[20,20]})}).catch(()=>{})}
+    function initPopulation(){if(maps.pop)return;const map=maps.pop=L.map("population-map-view").setView([23.6345,-102.5528],5);tileLayer().addTo(map);loadMexicoStates(map,"population");populationStats();renderPopulationCharts()}
+    function populationStats(){const t=populationData.reduce((s,d)=>s+d[1],0),f=populationData.reduce((s,d)=>s+d[2],0),m=populationData.reduce((s,d)=>s+d[3],0);document.getElementById("pop-total").textContent=fmt(t);document.getElementById("pop-female").textContent=fmt(f);document.getElementById("pop-male").textContent=fmt(m)}
+    function renderPopulationCharts(){const sorted=[...populationData].sort((a,b)=>b[1]-a[1]);chart("statePopulationChart","bar",{labels:sorted.map(d=>d[0]),datasets:[{label:"Población Total",data:sorted.map(d=>d[1]),backgroundColor:"rgba(63,81,181,.55)",borderColor:"#3f51b5"}]},{indexAxis:"y",plugins:{legend:{display:true}}});const f=populationData.reduce((s,d)=>s+d[2],0),m=populationData.reduce((s,d)=>s+d[3],0);chart("genderChart","pie",{labels:["Población Femenina","Población Masculina"],datasets:[{data:[f,m],backgroundColor:["#f47896","#58ace0"]}]})}
+    function initEconomy(){if(maps.eco)return;const map=maps.eco=L.map("economic-map-view").setView([23.6345,-102.5528],5);tileLayer().addTo(map);loadMexicoStates(map,"economy");const totals=["production","consumption","value"].map(k=>economyData.reduce((s,d)=>s+d[k],0));["economic-production","economic-consumption","economic-value"].forEach((id,i)=>document.getElementById(id).textContent=fmt(totals[i]));const sorted=[...economyData].sort((a,b)=>b.production-a.production);chart("productionChart","bar",{labels:sorted.map(d=>d.name),datasets:[{label:"Producción Bruta Total",data:sorted.map(d=>d.production),backgroundColor:"rgba(63,81,181,.55)"}]},{indexAxis:"y"});chart("comparisonChart","bar",{labels:sorted.slice(0,10).map(d=>d.name),datasets:[{label:"Producción",data:sorted.slice(0,10).map(d=>d.production),backgroundColor:"#36a2eb"},{label:"Consumo",data:sorted.slice(0,10).map(d=>d.consumption),backgroundColor:"#ff6384"},{label:"Valor agregado",data:sorted.slice(0,10).map(d=>d.value),backgroundColor:"#4bc0c0"}]});chart("topChart","bar",{labels:sorted.slice(0,10).map(d=>d.name),datasets:[{label:"Producción Bruta Total",data:sorted.slice(0,10).map(d=>d.production),backgroundColor:"rgba(153,102,255,.55)"}]})}
+    function show(id){document.getElementById("dashboard").style.display="none";document.querySelectorAll(".view").forEach(v=>v.style.display="none");document.getElementById(id).style.display="block";if(id==="earthquakes")initEarthquakes();if(id==="population")initPopulation();if(id==="economy")initEconomy();setTimeout(()=>Object.values(maps).forEach(m=>m.invalidateSize()),50)}
+    document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.open)));document.querySelectorAll("[data-back]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".view").forEach(v=>v.style.display="none");document.getElementById("dashboard").style.display="flex"}));document.querySelectorAll("[data-focus]").forEach(b=>b.addEventListener("click",()=>document.getElementById(b.dataset.focus).scrollIntoView({behavior:"smooth"})));document.getElementById("eq-filter").addEventListener("click",updateEarthquakes);document.getElementById("population-type").addEventListener("change",populationStats);document.getElementById("economy-type").addEventListener("change",()=>{});
+    [...new Set(earthquakesData.map(e=>e.date.slice(0,4)))].sort().reverse().forEach(y=>document.getElementById("eq-year").add(new Option(y,y)));document.getElementById("eq-year").value="2017";document.getElementById("eq-date").value=""; 
+  </script>
+</body>
+</html>
