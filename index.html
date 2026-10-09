@@ -1,10 +1,102 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Hola Mundo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090a08">
+<title>Natayfy — Cultura, Demos y Música Independiente</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{--bg:#090a08;--panel:#121410;--panel2:#1b1e18;--sage:#a1b593;--sage2:#c3d1b8;--muted:#9a9d95;--white:#f4f5ef;--line:#292c25}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;overflow-x:hidden}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;border:0}.app{min-height:100vh}.topbar{height:76px;padding:0 5.5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff0d;position:sticky;top:0;z-index:10;background:#090a08eF;backdrop-filter:blur(16px)}.brand{display:flex;align-items:center;gap:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:23px;letter-spacing:-1px}.brand-badge{width:46px;height:46px;display:grid;place-items:center}.nav{display:flex;gap:32px;color:#c5c8be;font-size:13px}.nav a:hover{color:var(--sage2)}.top-actions{display:flex;align-items:center;gap:12px}.login{background:none;color:var(--white);font-size:13px;padding:10px 14px}.signup{background:var(--sage);color:#11140f;font-weight:700;border-radius:30px;padding:12px 19px;font-size:12px;transition:.2s}.signup:hover,.primary:hover{background:var(--sage2);transform:translateY(-2px)}.hero{padding:65px 5.5% 48px;display:grid;grid-template-columns:1.05fr .95fr;gap:45px;align-items:center;max-width:1500px;margin:auto}.eyebrow{color:var(--sage);font-size:11px;text-transform:uppercase;letter-spacing:3px;font-weight:700;display:flex;gap:10px;align-items:center}.eyebrow:before{content:'';height:1px;width:27px;background:var(--sage)}h1,h2,h3,p{margin-top:0}h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(50px,7vw,98px);line-height:.88;letter-spacing:-6px;margin:24px 0 24px;font-weight:600}h1 span{color:var(--sage);font-family:Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-7px}.hero-copy{max-width:460px;color:#aeb1a8;line-height:1.75;font-size:15px}.hero-buttons{display:flex;gap:13px;align-items:center;margin-top:30px}.primary{background:var(--sage);color:#10130d;padding:15px 22px;border-radius:30px;font-size:13px;font-weight:700;transition:.2s}.secondary{border:1px solid #4a4e43;color:#e5e8df;background:transparent;border-radius:30px;padding:14px 20px;font-size:13px}.secondary:hover{border-color:var(--sage);color:var(--sage)}.tiny-note{margin-top:18px;color:#777c71;font-size:11px}.hero-art{height:450px;position:relative;isolation:isolate}.hero-art:before{content:'';position:absolute;inset:10% 5% 4% 13%;background:var(--sage);filter:blur(90px);opacity:.16;z-index:-1}.cover-main{position:absolute;right:4%;top:2%;width:68%;height:82%;object-fit:cover;filter:grayscale(100%);border-radius:5px;box-shadow:0 25px 70px #000b}.cover-small{position:absolute;left:0;bottom:0;width:43%;height:47%;object-fit:cover;filter:grayscale(100%);border:7px solid var(--bg);border-radius:4px}.art-label{position:absolute;right:0;bottom:0;background:var(--sage);color:#10130d;padding:15px 18px;font-size:11px;font-weight:700;letter-spacing:1px;writing-mode:vertical-rl}.orbit{position:absolute;left:4%;top:7%;width:92px;height:92px;border:1px solid #a1b59366;border-radius:50%;display:grid;place-items:center;color:var(--sage);font-size:10px;letter-spacing:2px;transform:rotate(-20deg)}.section{padding:38px 5.5% 70px;max-width:1500px;margin:auto}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:24px}.section-head h2{font:600 clamp(26px,3vw,39px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-1.5px;margin:10px 0 0}.view-all{color:var(--sage);font-size:12px}.moods{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.mood{min-height:155px;padding:20px;position:relative;overflow:hidden;border-radius:4px;background:var(--panel2);display:flex;flex-direction:column;justify-content:space-between;transition:.25s}.mood:hover{transform:translateY(-4px)}.mood:nth-child(2){background:#29251f}.mood:nth-child(3){background:#20261f}.mood:nth-child(4){background:#252427}.mood small{color:#c3c6bb;font-size:10px;letter-spacing:1.5px;text-transform:uppercase}.mood strong{font:600 22px 'Space Grotesk';letter-spacing:-1px;max-width:150px;z-index:1}.mood .shape{position:absolute;width:115px;height:115px;border-radius:50%;right:-24px;top:15px;background:var(--sage);opacity:.8;mix-blend-mode:screen}.track-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}.track{padding:12px;border-radius:5px;background:transparent;transition:.2s;min-width:0}.track:hover{background:var(--panel)}.album{aspect-ratio:1/1;position:relative;overflow:hidden;margin-bottom:14px;border-radius:3px;background:#1d211b}.album img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%);transition:.35s}.track:hover .album img{filter:grayscale(40%);transform:scale(1.04)}.play{position:absolute;right:10px;bottom:10px;width:42px;height:42px;border-radius:50%;background:var(--sage);color:#10130d;display:grid;place-items:center;box-shadow:0 4px 16px #0008;opacity:0;transform:translateY(7px);transition:.2s}.track:hover .play{opacity:1;transform:translateY(0)}.track h3{font-size:14px;margin:0 0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track p{font-size:12px;color:var(--muted);margin:0}.feature{margin:0 5.5% 70px;padding:38px 40px;background:var(--sage);color:#10130d;display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;position:relative;overflow:hidden}.feature:after{content:'N';position:absolute;font:italic 230px Georgia;right:23%;top:-80px;opacity:.08}.feature h2{font:600 clamp(27px,4vw,48px)/1 'Space Grotesk';letter-spacing:-2px;max-width:520px;margin:14px 0}.feature p{font-size:13px;max-width:470px;line-height:1.6;color:#343b2f;margin:0}.feature .primary{background:#10130d;color:var(--sage2);z-index:1}.footer{border-top:1px solid var(--line);padding:30px 5.5%;display:flex;justify-content:space-between;color:#858a7f;font-size:11px}.footer-links{display:flex;gap:22px}.player{position:fixed;bottom:0;left:0;right:0;z-index:20;background:#11130ff2;border-top:1px solid #34382d;backdrop-filter:blur(16px);padding:12px 4%;display:grid;grid-template-columns:1fr 1.3fr 1fr;align-items:center;gap:20px;transform:translateY(110%);transition:transform .3s}.player.visible{transform:translateY(0)}.now-playing{display:flex;align-items:center;gap:12px;min-width:0}.now-playing img{width:43px;height:43px;object-fit:cover;filter:grayscale(100%)}.now-playing strong{font-size:12px;display:block}.now-playing small{font-size:10px;color:var(--muted)}.player-controls{text-align:center}.control-row{display:flex;justify-content:center;align-items:center;gap:22px;margin-bottom:8px}.control{background:none;color:#d6d9d0;font-size:17px}.control.main{background:var(--sage);color:#111;width:31px;height:31px;border-radius:50%;font-size:13px}.progress{display:flex;align-items:center;gap:9px;color:#8f9489;font-size:9px}.bar{height:3px;background:#3b3f36;flex:1;border-radius:5px;overflow:hidden}.bar span{display:block;height:100%;width:26%;background:var(--sage)}.volume{justify-self:end;color:#9ba093;font-size:12px}.toast{position:fixed;right:22px;bottom:94px;background:var(--sage);color:#10130d;padding:13px 18px;font-size:12px;font-weight:700;border-radius:4px;opacity:0;transform:translateY(8px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:850px){.nav{display:none}.hero{grid-template-columns:1fr;padding-top:48px;gap:20px}.hero-art{height:360px;max-width:600px;width:100%;margin:auto}.moods{grid-template-columns:repeat(2,1fr)}.track-grid{grid-template-columns:repeat(3,1fr)}.feature{margin-left:4%;margin-right:4%;padding:30px 25px}.player{grid-template-columns:1fr 1fr}.volume{display:none}.player-controls{justify-self:end}.section{padding-left:4%;padding-right:4%}}
+@media(max-width:520px){.topbar{padding:0 5%;height:65px}.brand{font-size:22px}.login{display:none}.hero{padding:40px 5% 25px}h1{letter-spacing:-4px}h1 span{letter-spacing:-4px}.hero-art{height:290px}.orbit{width:70px;height:70px;font-size:8px}.section-head h2{font-size:28px}.moods{gap:9px}.mood{min-height:135px;padding:15px}.mood strong{font-size:19px}.mood .shape{width:80px;height:80px}.track-grid{grid-template-columns:repeat(2,1fr);gap:6px}.feature{grid-template-columns:1fr;padding:28px 22px}.feature .primary{justify-self:start}.footer{gap:18px;flex-direction:column}.player{padding:10px 4%;gap:10px;grid-template-columns:1fr auto}.player-controls{justify-self:end}.control-row{gap:12px}.progress{width:160px}.now-playing img{width:37px;height:37px}}
+</style>
 </head>
 <body>
-    <h1>Hola, mundo</h1>
+<div class="app">
+<header class="topbar">
+  <a class="brand" href="#" aria-label="Natayfy inicio">
+    <div class="brand-badge">
+      <svg width="46" height="46" viewBox="0 0 140 140" style="background: transparent;">
+        <defs>
+          <path id="circlePath" d="M 20, 70 a 50,50 0 1,1 100,0 a 50,50 0 1,1 -100,0" />
+        </defs>
+        <text fill="#f4f5ef" font-family="'Space Grotesk', sans-serif" font-size="11.5" font-weight="700" letter-spacing="2.5px">
+          <textPath href="#circlePath" startOffset="0%">
+            NATIFY • CULTURA • ORIGINAL • UNDERGROUND •
+          </textPath>
+        </text>
+        <circle cx="70" cy="70" r="22" fill="#a1b593" />
+        <polygon points="65,59 65,81 83,70" fill="#10130d" />
+      </svg>
+    </div>
+    natayfy
+  </a>
+  <nav class="nav"><a href="#maquetas">Maquetas & Demos</a><a href="#comunidad">Comunidad & Co-creación</a><a href="#matchmaking">Matchmaking Premium</a></nav>
+  <div class="top-actions"><button class="login" id="loginBtn">Iniciar sesión</button><button class="signup" id="signupBtn">Sube tu música ↗</button></div>
+</header>
+<main>
+<section class="hero">
+  <div>
+    <div class="eyebrow">Streaming libre & red social musical</div>
+    <h1>Comparte<br>tus <span>maquetas.</span></h1>
+    <p class="hero-copy">No esperes a un contrato discográfico. Sube tus demos independientes, colabora con otros creadores, comparte beats y conéctate con artistas afines en un ecosistema abierto.</p>
+    <div class="hero-buttons"><button class="primary" id="exploreBtn">Explorar maquetas <span>↗</span></button><button class="secondary" id="mixBtn">✳ Matchmaking de talentos</button></div>
+    <p class="tiny-note">Cultura independiente. Sin intermediarios. Tu sonido real.</p>
+  </div>
+  <div class="hero-art" aria-label="Collage fotográfico estudio independiente">
+    <div class="orbit">DEMO · BEAT · COLLAB</div>
+    <img class="cover-main" src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1000&q=85" alt="Estudio de producción independiente">
+    <img class="cover-small" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=85" alt="Consola y micrófonos">
+    <div class="art-label">NATAYFY CULTURA ORIGINAL — 2026</div>
+  </div>
+</section>
+<section class="section" id="comunidad">
+  <div class="section-head"><div><div class="eyebrow">Espacios de Creación</div><h2>Conecta y colabora.</h2></div><a class="view-all" href="#maquetas">Ver catálogo ↗</a></div>
+  <div class="moods">
+    <button class="mood" data-mood="Demos y Maquetas"><small>01 / Underground</small><strong>Demos y Maquetas</strong><span class="shape"></span></button>
+    <button class="mood" data-mood="Beats para Collabs"><small>02 / Productores</small><strong>Beats & Loops</strong><span class="shape"></span></button>
+    <button class="mood" data-mood="Bandas Emergentes"><small>03 / Comunidad</small><strong>Bandas & Covers</strong><span class="shape"></span></button>
+    <button class="mood" data-mood="Playlists Colaborativas"><small>04 / Agregación</small><strong>Listas Compartidas</strong><span class="shape"></span></button>
+  </div>
+</section>
+<section class="section" id="maquetas">
+  <div class="section-head"><div><div class="eyebrow">Tendencias Independientes</div><h2>Escucha lo nuevo de la comunidad.</h2></div><a class="view-all" href="#matchmaking">Sube tu track ↗</a></div>
+  <div class="track-grid">
+    <article class="track" data-title="Cybernetic Pulse (Demo)" data-artist="DataRunner · Synthwave indie"><div class="album"><img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=500&q=80" alt="Sintetizadores"><button class="play" aria-label="Reproducir Cybernetic Pulse">▶</button></div><h3>Cybernetic Pulse</h3><p>DataRunner · Demo inédito</p></article>
+    <article class="track" data-title="Binary Sunset (Stems)" data-artist="NullPointer · Lo-fi beat"><div class="album"><img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=500&q=80" alt="Estudio nocturno"><button class="play" aria-label="Reproducir Binary Sunset">▶</button></div><h3>Binary Sunset</h3><p>NullPointer · Stems abiertos</p></article>
+    <article class="track" data-title="Kernel Panic (Cover Acústico)" data-artist="C_Plus_Plus · Indie folk"><div class="album"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=500&q=80" alt="Guitarra acústica"><button class="play" aria-label="Reproducir Kernel Panic">▶</button></div><h3>Kernel Panic</h3><p>C_Plus_Plus · Cover vivo</p></article>
+    <article class="track" data-title="Late Night Sessions #4" data-artist="ESCOM Labs · Podcast & Collab"><div class="album"><img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=500&q=80" alt="Micrófono de entrevista"><button class="play" aria-label="Reproducir Podcast">▶</button></div><h3>Podcast #4</h3><p>ESCOM Labs · Invitados</p></article>
+    <article class="track" data-title="Analog Frequencies" data-artist="Tasha & Friends · Chillhop"><div class="album"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=500&q=80" alt="Vinilo en tornamesa"><button class="play" aria-label="Reproducir Analog Frequencies">▶</button></div><h3>Analog Frequencies</h3><p>Tasha & Friends</p></article>
+  </div>
+</section>
+<section class="feature" id="matchmaking"><div><div class="eyebrow" style="color:#30392a">Función Premium // Matchmaking de Talentos</div><h2>Conecta con creadores afines a tus intereses musicales.</h2><p>Nuestra membresía Premium utiliza algoritmos de recomendación en base de datos para emparejarte con artistas y productores que buscan colaborar, intercambiar maquetas y formar nuevas bandas.</p></div><button class="primary" id="matchBtn">Activar Matchmaking ↗</button></section>
+</main>
+<footer class="footer"><a class="brand" href="#"><span class="brand-badge" style="width:30px;height:30px;"><svg width="30" height="30" viewBox="0 0 140 140"><text fill="#858a7f" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="700"><textPath href="#circlePath">NATIFY</textPath></text><circle cx="70" cy="70" r="20" fill="#a1b593"/></svg></span>natayfy</a><span>Ecosistema de Música Independiente & Base de Datos. © 2026.</span><div class="footer-links"><a href="#maquetas">Maquetas</a><a href="#comunidad">Comunidad</a><a href="mailto:soporte@natayfy.example">Contacto</a></div></footer>
+</div>
+<div class="player" id="player">
+  <div class="now-playing"><img id="playerImg" src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=100&q=70" alt=""><div><strong id="playerTitle">Cybernetic Pulse</strong><small id="playerArtist">DataRunner · Demo inédito</small></div></div>
+  <div class="player-controls"><div class="control-row"><button class="control" id="shuffle" title="Aleatorio">⤨</button><button class="control" id="prev" title="Anterior">‹</button><button class="control main" id="togglePlay" title="Pausar">Ⅱ</button><button class="control" id="next" title="Siguiente">›</button><button class="control" id="repeat" title="Repetir">↻</button></div><div class="progress"><span>01:12</span><div class="bar"><span></span></div><span>03:45</span></div></div>
+  <div class="volume">♫ &nbsp; ━━━━━</div>
+</div>
+<div class="toast" id="toast">¡Bienvenido a Natayfy!</div>
+<script>
+const tracks=[...document.querySelectorAll('.track')];let current=0,playing=false;
+const player=document.getElementById('player'),toast=document.getElementById('toast');
+function notify(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toast.classList.remove('show'),2300)}
+function playTrack(index){current=(index+tracks.length)%tracks.length;const t=tracks[current];document.getElementById('playerTitle').textContent=t.dataset.title;document.getElementById('playerArtist').textContent=t.dataset.artist;document.getElementById('playerImg').src=t.querySelector('img').src;player.classList.add('visible');playing=true;document.getElementById('togglePlay').textContent='Ⅱ';notify('Reproduciendo maqueta: '+t.dataset.title)}
+tracks.forEach((t,i)=>{t.querySelector('.play').addEventListener('click',()=>playTrack(i));t.addEventListener('dblclick',()=>playTrack(i))});
+document.getElementById('togglePlay').addEventListener('click',()=>{playing=!playing;document.getElementById('togglePlay').textContent=playing?'Ⅱ':'▶';notify(playing?'Reproducción de demo independiente':'Pausado')});
+document.getElementById('next').addEventListener('click',()=>playTrack(current+1));document.getElementById('prev').addEventListener('click',()=>playTrack(current-1));
+document.getElementById('exploreBtn').addEventListener('click',()=>document.getElementById('maquetas').scrollIntoView({behavior:'smooth'}));
+document.getElementById('mixBtn').addEventListener('click',()=>notify('Buscando match musical con creadores cercanos... ¡Encontrado!'));
+document.getElementById('matchBtn').addEventListener('click',()=>notify('Suscripción Premium: Matchmaking de talentos activado 🤖'));
+document.querySelectorAll('.mood').forEach(m=>m.addEventListener('click',()=>{notify('Espacio seleccionado: '+m.dataset.mood);document.getElementById('maquetas').scrollIntoView({behavior:'smooth'})}));
+document.getElementById('signupBtn').addEventListener('click',()=>notify('¡Sube tu maqueta o beat gratis en Natayfy!'));
+document.getElementById('loginBtn').addEventListener('click',()=>notify('Acceso a panel de artista próximamente.'));
+document.getElementById('shuffle').addEventListener('click',()=>playTrack(Math.floor(Math.random()*tracks.length)));
+document.getElementById('repeat').addEventListener('click',()=>notify('Repetición de maqueta activada'));
+</script>
 </body>
 </html>
